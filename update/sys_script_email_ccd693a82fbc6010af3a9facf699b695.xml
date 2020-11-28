@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_email">
+    <sys_script_email action="INSERT_OR_UPDATE">
+        <name>CountOverdueNeedItTasksAssignedTo</name>
+        <new_lines_to_html>false</new_lines_to_html>
+        <script><![CDATA[(function runMailScript(/* GlideRecord */ current, /* TemplatePrinter */ template,
+          /* Optional EmailOutbound */ email, /* Optional GlideRecord */ email_action,
+          /* Optional GlideRecord */ event) {
+
+      var rightNow = new GlideDateTime();
+	var overDueNITTasks = new GlideRecord('x_58872_needit_needit_task');
+	overDueNITTasks.addQuery('due_date','<=',rightNow);
+	overDueNITTasks.addQuery('state','!=',3);
+	overDueNITTasks.addQuery('assigned_to',current.assigned_to);
+	overDueNITTasks.query();
+	
+template.print('Number of over due Needit Tasks assigned to you are :'+ (overDueNITTasks.getRowCount()-1) + '.');
+})(current, template, email, email_action, event);]]></script>
+        <sys_class_name>sys_script_email</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2020-11-27 15:14:45</sys_created_on>
+        <sys_id>ccd693a82fbc6010af3a9facf699b695</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>CountOverdueNeedItTasksAssignedTo</sys_name>
+        <sys_package display_value="NeedIt" source="x_58872_needit">6ead8e780f603200cd674f8ce1050ed1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="NeedIt">6ead8e780f603200cd674f8ce1050ed1</sys_scope>
+        <sys_update_name>sys_script_email_ccd693a82fbc6010af3a9facf699b695</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2020-11-27 15:26:32</sys_updated_on>
+    </sys_script_email>
+</record_update>
